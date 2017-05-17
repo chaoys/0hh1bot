@@ -3,6 +3,7 @@ import pygtk
 import gtk
 import subprocess
 import time
+import pyautogui as ag
  
 def get_color(pointer_x, pointer_y):  
     """Returns an (R, G, B) tuple at the current pointer location."""  
@@ -54,9 +55,9 @@ def color_code(c):
 		return bad_code
 def color_click(c):
 	if c == red_code:
-		return 1
+		return 'left'
 	elif c == blue_code:
-		return 3
+		return 'right'
 	else:
 		print("bad code")
 
@@ -122,11 +123,9 @@ def matrix_scan():
 		y = y + 1
 
 def change_color(x, y, c, n):
-	print("%d %d %d %d" % (n, n/row, n%row, c))
-	cmd = "xdotool mousemove %d %d click %d" % (x, y, color_click(c))
-	print(cmd)
-	time.sleep(0.05)
-	pp = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
+#	print("%d %d %d %d" % (n, n/row, n%row, c))
+	ag.click(x=x,y=y,button=color_click(c))
+#	time.sleep(0.05)
 	
 matrix_scan()
 
